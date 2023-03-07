@@ -40,7 +40,7 @@ public class ItemServiceTest {
 
         List<MultipartFile> multipartFileList = new ArrayList<>();
         for(int i=0;i<5;i++){
-            String path = "C:\\shop\\item"; //경로 설정 확실히 잘합시다 /  , \\ 이걸 잘 봐야함
+            String path = "C:/shop/item"; //경로 설정 확실히 잘합시다
             String imageName = "image" + i + ".jpg";
             MockMultipartFile multipartFile =
                     new MockMultipartFile(path, imageName, "image/jpg", new byte[]{1,2,3,4});

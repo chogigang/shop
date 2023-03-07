@@ -38,6 +38,13 @@ public class ItemController {
             model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값 입니다.");
             return "item/itemForm";
         }
+        try {
+            itemService.saveItem(itemFormDto, itemImgFileList);//상품 저장 로직 호출
+        }catch (Exception e){
+            model.addAttribute("errorMessage","상품 등록 중 에러가 발생하였습니다.");
+            return "item/itemForm";
+        }
+        
         return "redirect:/";
     }
 
