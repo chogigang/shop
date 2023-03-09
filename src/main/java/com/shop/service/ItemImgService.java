@@ -39,5 +39,21 @@ public class ItemImgService {
         itemImgRepository.save(itemImg);
     }
 
+    public void updateItemImg(Long itemImgId, MultipartFile itemImgFile)throws Exception{//추가
+        if (!itemImgFile.isEmpty()){
+            ItemImg savedItemImg = itemImgRepository.findById(itemImgId)
+                    .orElseThrow(EntityNotFoundException::new);
+
+            //기존 이미지ㅣ 파일 삭제
+            if (!StringUtils.isEmpty(savedItemImg.getImgNme())){
+                fileService.deleteFile(itemImgLocation+"/"+ savedItemImg.getImgNme());
+            }
+        String orItemName = itemImgFile.getOriginalFilename();
+            String imgName = fileService.uploadFile(itemImgLocation,orItemName,itemImgFile.getBytes());
+            String imgUrl = "/images/item/" +imgName;
+            savedItemImg.updateItemImg(orItemName,imgName,imgUrl);
+
+        }
+    }
 
 }
