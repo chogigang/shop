@@ -4,15 +4,15 @@ import com.shop.constant.ItemSellStatus;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Getter @Setter
 public class ItemSearchDto {
-private String searchDateType;
 
-private ItemSellStatus itemSellStatus;
+    private String searchDateType;
 
-private String searchBy;
+    private ItemSellStatus searchSellStatus;
 
-private String searchQuery;
+    private String searchBy;
+
+    private String searchQuery = "";
 
 }

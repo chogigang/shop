@@ -80,10 +80,11 @@ public Long updateItem(ItemFormDto itemFormDto,List<MultipartFile> itemImgFileLi
     }
     return item.getId();
     }
-        @Transactional(readOnly = true)//추가
-        public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable){
-        return itemRepository.getAdminItemPage(itemSearchDto, pageable);
 
+    //페이징
+    @Transactional(readOnly = true)
+    public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable){
+        return itemRepository.getAdminItemPage(itemSearchDto, pageable);
     }
 
 }
