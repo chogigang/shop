@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-public class OrderItem extends  BaseEntity{//<- 추가
+public class OrderItem extends  BaseEntity{
 
     @Id
     @GeneratedValue
@@ -29,7 +29,25 @@ public class OrderItem extends  BaseEntity{//<- 추가
 
     private int count;// 수량
 
-    private LocalDateTime regTime;  //삭제
-    private LocalDateTime updateTime; // 삭제
+    private LocalDateTime regTime;
+    private LocalDateTime updateTime;
 
+
+    public static OrderItem createOrderItem(Item item, int count){
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setCount(count);
+        orderItem.setOrderPrice(item.getPrice());
+
+        item.removeStock(count);
+        return orderItem;
+    }
+
+    public int getTotalPrice(){
+        return orderPrice*count;
+    }
+
+    public void cancel(){//추가
+        this.getItem().addStock(count);
+    }
 }

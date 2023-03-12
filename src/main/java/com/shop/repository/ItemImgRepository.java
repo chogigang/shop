@@ -10,4 +10,6 @@ import java.util.List;
 public interface ItemImgRepository extends JpaRepository<ItemImg, Long>,
         QuerydslPredicateExecutor<Item>, ItemRepositoryCustom{
     List<ItemImg> findByItemIdOrderByIdAsc(Long itemId);
+
+    ItemImg findByItemIdAndRepimgYn(Long itemId, String repimgYn);
 }
