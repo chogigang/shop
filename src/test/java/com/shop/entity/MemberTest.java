@@ -7,16 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
-
+import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 @SpringBootTest
 @Transactional
-@TestPropertySource(locations = "classpath:application-test.properties")
+@TestPropertySource(locations="classpath:application-test.properties")
 public class MemberTest {
+
     @Autowired
     MemberRepository memberRepository;
 
@@ -34,13 +34,12 @@ public class MemberTest {
         em.clear();
 
         Member member = memberRepository.findById(newMember.getId())
-                        .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(EntityNotFoundException::new);
 
-        System.out.println("register time:" +member.getRegTime());
+        System.out.println("register time : " + member.getRegTime());
         System.out.println("update time : " + member.getUpdateTime());
         System.out.println("create member : " + member.getCreatedBy());
         System.out.println("modify member : " + member.getModifiedBy());
     }
+
 }
-
-

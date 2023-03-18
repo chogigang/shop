@@ -1,6 +1,5 @@
 package com.shop.controller;
 
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@TestPropertySource(locations = "classpath:application-test.properties")
-public class ItemControllerTest {
-
+@TestPropertySource(locations="classpath:application-test.properties")
+class ItemControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -28,15 +26,16 @@ public class ItemControllerTest {
     @WithMockUser(username = "admin", roles = "ADMIN")
     public void itemFormTest() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders.get("/admin/item/new"))
-                .andDo(print()).andExpect(status().isOk());
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
-@Test
+    @Test
     @DisplayName("상품 등록 페이지 일반 회원 접근 테스트")
-@WithMockUser(username = "user", roles = "USER")
-    public void itemNotAdminTest() throws Exception{
+    @WithMockUser(username = "user", roles = "USER")
+    public void itemFormNotAdminTest() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders.get("/admin/item/new"))
-                .andDo(print()).andExpect(status().isForbidden());
-}
-
+                .andDo(print())
+                .andExpect(status().isForbidden());
+    }
 }

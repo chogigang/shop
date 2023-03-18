@@ -1,6 +1,5 @@
 package com.shop.service;
 
-
 import com.shop.constant.ItemSellStatus;
 import com.shop.dto.ItemFormDto;
 import com.shop.entity.Item;
@@ -14,19 +13,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @Transactional
 @TestPropertySource(locations="classpath:application-test.properties")
-public class ItemServiceTest {
-
+class ItemServiceTest {
 
     @Autowired
     ItemService itemService;
@@ -36,11 +34,13 @@ public class ItemServiceTest {
 
     @Autowired
     ItemImgRepository itemImgRepository;
+
     List<MultipartFile> createMultipartFiles() throws Exception{
 
         List<MultipartFile> multipartFileList = new ArrayList<>();
+
         for(int i=0;i<5;i++){
-            String path = "C:/shop/item"; //경로 설정 확실히 잘합시다
+            String path = "C:/shop/item/";
             String imageName = "image" + i + ".jpg";
             MockMultipartFile multipartFile =
                     new MockMultipartFile(path, imageName, "image/jpg", new byte[]{1,2,3,4});
@@ -48,7 +48,8 @@ public class ItemServiceTest {
         }
 
         return multipartFileList;
-}
+    }
+
     @Test
     @DisplayName("상품 등록 테스트")
     @WithMockUser(username = "admin", roles = "ADMIN")
@@ -74,7 +75,5 @@ public class ItemServiceTest {
         assertEquals(itemFormDto.getStockNumber(), item.getStockNumber());
         assertEquals(multipartFileList.get(0).getOriginalFilename(), itemImgList.get(0).getOriImgName());
     }
-
-
 
 }

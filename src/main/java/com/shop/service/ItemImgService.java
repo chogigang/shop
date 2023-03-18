@@ -1,6 +1,5 @@
 package com.shop.service;
 
-
 import com.shop.entity.ItemImg;
 import com.shop.repository.ItemImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +17,7 @@ public class ItemImgService {
 
     @Value("${itemImgLocation}")
     private String itemImgLocation;
+
     private final ItemImgRepository itemImgRepository;
 
     private final FileService fileService;
@@ -39,20 +39,21 @@ public class ItemImgService {
         itemImgRepository.save(itemImg);
     }
 
-    public void updateItemImg(Long itemImgId, MultipartFile itemImgFile)throws Exception{//추가
-        if (!itemImgFile.isEmpty()){
+    public void updateItemImg(Long itemImgId, MultipartFile itemImgFile) throws Exception{
+        if(!itemImgFile.isEmpty()){
             ItemImg savedItemImg = itemImgRepository.findById(itemImgId)
                     .orElseThrow(EntityNotFoundException::new);
 
-            //기존 이미지ㅣ 파일 삭제
-            if (!StringUtils.isEmpty(savedItemImg.getImgNme())){
-                fileService.deleteFile(itemImgLocation+"/"+ savedItemImg.getImgNme());
+            //기존 이미지 파일 삭제
+            if(!StringUtils.isEmpty(savedItemImg.getImgName())) {
+                fileService.deleteFile(itemImgLocation+"/"+
+                        savedItemImg.getImgName());
             }
-        String orItemName = itemImgFile.getOriginalFilename();
-            String imgName = fileService.uploadFile(itemImgLocation,orItemName,itemImgFile.getBytes());
-            String imgUrl = "/images/item/" +imgName;
-            savedItemImg.updateItemImg(orItemName,imgName,imgUrl);
 
+            String oriImgName = itemImgFile.getOriginalFilename();
+            String imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
+            String imgUrl = "/images/item/" + imgName;
+            savedItemImg.updateItemImg(oriImgName, imgName, imgUrl);
         }
     }
 
