@@ -47,15 +47,17 @@ public class MemberController {
         return "redirect:/";
     }
 
+
+    //리눅스 상황에서 맨앞에 /가 있으면 타임밀프가 읽지를 못한다.
     @GetMapping(value = "/login")
     public String loginMember(){
-        return "/member/memberLoginForm";
+        return "member/memberLoginForm";
     }
 
     @GetMapping(value = "/login/error")
     public String loginError(Model model){
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요");
-        return "/member/memberLoginForm";
+        return "member/memberLoginForm";
     }
 
 }
