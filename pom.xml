@@ -78,6 +78,7 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!--단순 배포 때 가리고 사용하기 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -93,6 +94,7 @@
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 		</dependency>
 
+		<!--단순 배포때 가리고 사용 스프링 시큐리티. -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
